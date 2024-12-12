@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REGISTRO DE ENFERMEDADES</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        /* Fondo con imagen */
+        body {
+            background-image: url('../../assets/img/Virus\ Enfermedad\ 3.jpg'); /* URL de la imagen de fondo */
+            background-size: cover;
+            background-position: center;
+            font-family: 'Arial', sans-serif;
+            color: green; /* Cambié el color de texto a verde */
+            padding: 0;
+            margin: 0;
+            height: 100vh;
+        }
+
+        /* Centrado del formulario */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Para asegurarnos de que esté centrado verticalmente */
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con transparencia */
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 700px; /* Limitar el tamaño del formulario */
+        }
+
+        /* Estilo del título */
+        h3 {
+            color: green; /* Título en verde */
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.3); /* Sombra al texto */
+            text-align: center;
+        }
+
+        /* Estilo de los campos de texto */
+        .form-control {
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control:focus {
+            border-color: green; /* Color de borde verde */
+            box-shadow: 0 0 5px rgba(0, 255, 0, 0.5); /* Sombra verde en el campo */
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: green; /* Color verde para las etiquetas */
+        }
+
+        .btn-primary {
+            background-color: green;
+            border-color: green;
+            font-weight: 600;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-transform: uppercase;
+        }
+
+        .btn-primary:hover {
+            background-color: darkgreen;
+            border-color: darkgreen;
+        }
+
+        /* Estilo de los campos de selección */
+        .form-select {
+            border-radius: 8px;
+            padding: 8px;
+        }
+
+        /* Ajustes para pantallas pequeñas */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="container">
+            <div class="form-container">
+                <h3>REGISTRO DE ENFERMEDADES</h3>
+                <form class="p-5 border rounded shadow" id="formEnfermedad">
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="form-label">Nombres: </label>
+                            <input type="text" class="form-control" id="nombreenfermedad" required>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Síntomas: </label>
+                            <input type="text" class="form-control" id="sintomasenfermedad" required>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-6">
+                            <label class="form-label">Clasificación: </label>
+                            <input type="text" class="form-control" id="clasificacionenfermedad" required>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Grado: </label>
+                            <select class="form-select" id="gradoenfermedad" required>
+                                <option value="" disabled selected>Selecciona un grado</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="form-label">Probabilidad de Vida: </label>
+                            <input type="text" class="form-control" id="probabilidadvidaenfermedad" required>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-5" type="submit" id="botonregistroenfermedad">Registrar</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        document.getElementById('formEnfermedad').addEventListener('submit', function (event) {
+            event.preventDefault();  // Evitar el envío del formulario para validarlo primero
+
+            // Obtener los valores de los campos
+            const nombre = document.getElementById('nombreenfermedad').value;
+            const sintomas = document.getElementById('sintomasenfermedad').value;
+            const clasificacion = document.getElementById('clasificacionenfermedad').value;
+            const grado = document.getElementById('gradoenfermedad').value;
+            const probabilidad = document.getElementById('probabilidadvidaenfermedad').value;
+
+            // Validación de campos
+            if (!nombre || !sintomas || !clasificacion || !grado || !probabilidad) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: 'Por favor completa todos los campos.',
+                    confirmButtonText: 'Aceptar'
+                });
+                return;
+            }
+
+            // Si todo está completo, mostrar éxito
+            Swal.fire({
+                icon: 'success',
+                title: '¡Registro exitoso!',
+                text: `Enfermedad ${nombre} registrada correctamente.`,
+                confirmButtonText: 'Aceptar'
+            });
+
+            // Limpiar formulario después de éxito
+            document.getElementById('formEnfermedad').reset();
+        });
+    </script>
+</body>
+</html>
